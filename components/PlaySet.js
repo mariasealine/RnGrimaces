@@ -1,17 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import grimaceImages from './../imagesApi/grimaceImages';
 
 const PlaySet = () => {
-	randomGrimace = () => {
-		const randomElement = grimaceImages[Math.floor(Math.random() * grimaceImages.length)];
-		console.log(randomElement.uri);
-		return randomElement.uri;
+
+	randomGrimace = (index) => {
+		let currentImage = grimaceImages[index];
+		return currentImage.uri;
 	}
 
 	const [takenPictureUri, setTakenPictureUri] = useState(null);
-	const [grimaceUri, setGrimaceUri] = useState(randomGrimace());
+	const [grimaceIndex, setGrimaceIndex] = useState(0);
+	const [grimaceUri, setGrimaceUri] = useState(randomGrimace(grimaceIndex));
+
+	updateImage = (index) => {
+		if (index < grimaceImages.length - 1) {
+			setGrimaceIndex(index + 1);
+		} else {
+			setGrimaceIndex(0);
+		}
+	}
+
+	useEffect(() => {
+		if (grimaceIndex < grimaceImages.length) {
+			setGrimaceUri(randomGrimace(grimaceIndex));
+		} else {
+			setGrimaceUri(randomGrimace(0));
+		}
+	})
 
 	takePicture = async () => {
 		try {
@@ -19,7 +36,6 @@ const PlaySet = () => {
 				const options = { quality: 0.5, base64: true };
 				const { uri } = await this.camera.takePictureAsync(options);
 				setTakenPictureUri(uri);
-				console.log(uri);
 			}
 		} catch (err) {
 			alert(err.message);
@@ -35,11 +51,11 @@ const PlaySet = () => {
 				<Image style={styles.previewCompareImg} source={{ uri: grimaceUri }} />
 				<Text style={styles.text}>Blev det likt?</Text>
 				<TouchableOpacity onPress={() => setTakenPictureUri(null)} style={[styles.button, styles.buttonTop]}><Text style={styles.btn}>Nej, jag vill försöka igen!</Text></TouchableOpacity>
-				<TouchableOpacity onPress={() => { setTakenPictureUri(null); setGrimaceUri(randomGrimace()); }} style={styles.button}><Text style={styles.btn}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
+				<TouchableOpacity onPress={() => { setTakenPictureUri(null); updateImage(grimaceIndex); }} style={styles.button}><Text style={styles.btn}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
 			</View>
 			:
 			<View style={styles.container}>
-				<Text style={styles.text}>Försök härma bilden!</Text>
+				<Text style={styles.textHeading}>Försök härma bilden!</Text>
 				<RNCamera
 					ref={ref => {
 						this.camera = ref;
@@ -94,9 +110,16 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 24,
-		alignSelf: 'center',
 		paddingTop: 24,
-		paddingBottom: 10
+		paddingBottom: 14,
+	},
+	textHeading: {
+		backgroundColor: 'pink',
+		fontSize: 24,
+		paddingTop: 14,
+		paddingBottom: 14,
+		width: '100%',
+		textAlign: 'center'
 	},
 	preview: {
 		flex: 3,
