@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import grimaceImages from '../imagesApi/grimaceImages';
 
 const Content = () => {
+  // const url = grimaceImages[0].uri;
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Hej! Kom och öva på roliga miner. Härma bilden, ta ett kort och jämför </Text>
-      <Image style={styles.img} source={{ uri: 'https://picsum.photos/id/1025/300/200' }} />
+      <Image style={styles.img} source={grimaceImages[0].uri} />
     </View>
   )
 }

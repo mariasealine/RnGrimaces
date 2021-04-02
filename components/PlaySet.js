@@ -11,7 +11,7 @@ const PlaySet = () => {
 	}
 
 	const [takenPictureUri, setTakenPictureUri] = useState(null);
-	const [grimaceIndex, setGrimaceIndex] = useState(0);
+	const [grimaceIndex, setGrimaceIndex] = useState(1);
 	const [grimaceUri, setGrimaceUri] = useState(randomGrimace(grimaceIndex));
 
 	updateImage = (index) => {
@@ -45,11 +45,11 @@ const PlaySet = () => {
 	return (
 		takenPictureUri ?
 			<View style={styles.previewContainer}>
+				<Text style={styles.textHeading}>Blev det likt?</Text>
 				<Image
 					style={styles.previewImg}
 					source={{ uri: takenPictureUri }} />
-				<Image style={styles.previewCompareImg} source={{ uri: grimaceUri }} />
-				<Text style={styles.text}>Blev det likt?</Text>
+				<Image style={styles.previewCompareImg} source={grimaceUri} />
 				<TouchableOpacity onPress={() => setTakenPictureUri(null)} style={[styles.button, styles.buttonTop]}><Text style={styles.btn}>Nej, jag vill försöka igen!</Text></TouchableOpacity>
 				<TouchableOpacity onPress={() => { setTakenPictureUri(null); updateImage(grimaceIndex); }} style={styles.button}><Text style={styles.btn}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
 			</View>
@@ -72,7 +72,7 @@ const PlaySet = () => {
 					}}
 				/>
 				<View style={styles.grimaceImage}>
-					<Image style={styles.img} source={{ uri: grimaceUri }} />
+					<Image style={styles.img} source={grimaceUri} />
 				</View>
 				<View style={styles.btnWrapper}>
 					<TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.button}>
@@ -86,15 +86,15 @@ const PlaySet = () => {
 const styles = StyleSheet.create({
 	previewContainer: {
 		flex: 1,
-		alignItems: 'center',
-		paddingTop: 30
+		alignItems: 'center'
 	},
 	previewImg: {
 		width: 200,
 		height: 200,
 		borderWidth: 2,
 		borderColor: 'pink',
-		borderRadius: 6
+		borderRadius: 6,
+		marginBottom: 10
 	},
 	previewCompareImg: {
 		width: 200,
@@ -108,18 +108,14 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		backgroundColor: 'white'
 	},
-	text: {
-		fontSize: 24,
-		paddingTop: 24,
-		paddingBottom: 14,
-	},
 	textHeading: {
 		backgroundColor: 'pink',
 		fontSize: 24,
 		paddingTop: 14,
 		paddingBottom: 14,
 		width: '100%',
-		textAlign: 'center'
+		textAlign: 'center',
+		marginBottom: 24
 	},
 	preview: {
 		flex: 3,
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderColor: 'pink',
 		borderRadius: 6,
-		margin: 10
+		marginHorizontal: 16
 	},
 	grimaceImage: {
 		flex: 2,
