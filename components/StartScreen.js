@@ -4,28 +4,25 @@ import Header from './Header';
 import Content from './Content';
 
 const StartScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Header title='Lek med grimaser' />
-      <Content />
-      {/* <Button
-        title="Börja spela"
-        onPress={() => navigation.navigate('PlaySet')} /> */}
+	return (
+		<View style={styles.container}>
+			<Header title='Lek med grimaser' />
+			<Content />
 			<TouchableOpacity
 				style={styles.startBtn}
 				onPress={() => navigation.navigate('PlaySet')}
-				>
-					<Text style={styles.text}>Börja spela</Text>
+			>
+				<Text style={styles.text}>Börja spela</Text>
 			</TouchableOpacity>
-    </View>
-  )
+		</View>
+	)
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  startBtn: {
+	container: {
+		flex: 1,
+	},
+	startBtn: {
 		backgroundColor: 'pink',
 		justifyContent: 'center',
 		borderWidth: 2,
@@ -33,7 +30,7 @@ const styles = StyleSheet.create({
 		padding: 15,
 		marginBottom: 100,
 		alignSelf: 'center',
-  },
+	},
 	text: {
 		fontSize: 16
 	}

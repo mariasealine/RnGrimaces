@@ -10,7 +10,7 @@ const Header = (props) => {
 };
 
 Header.defaultProps = {
-    title: 'Grimaslek'
+  title: 'Grimaslek'
 }
 
 const styles = StyleSheet.create({
