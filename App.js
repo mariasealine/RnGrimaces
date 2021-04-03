@@ -11,11 +11,12 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={StartScreen} />
-        <Stack.Screen name="PlaySet" component={PlaySet} />
+        <Stack.Screen name="Home" component={StartScreen} options={{ title: 'Hem' }} />
+        <Stack.Screen name="PlaySet" component={PlaySet} options={{ title: 'Spel' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
+

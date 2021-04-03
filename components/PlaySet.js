@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import grimaceImages from './../imagesApi/grimaceImages';
+import Header from './Header';
 
 const PlaySet = () => {
 
@@ -44,23 +45,25 @@ const PlaySet = () => {
 
 	return (
 		takenPictureUri ?
-			<View style={styles.previewContainer}>
-				<Text style={styles.textHeading}>Blev det likt?</Text>
+			<View style={styles.container}>
+				<Header title={'Blev det likt?'} />
 				<Image
 					style={styles.previewImg}
 					source={{ uri: takenPictureUri }} />
-				<Image style={styles.previewCompareImg} source={grimaceUri} />
-				<TouchableOpacity onPress={() => setTakenPictureUri(null)} style={[styles.button, styles.buttonTop]}><Text style={styles.btn}>Nej, jag vill försöka igen!</Text></TouchableOpacity>
-				<TouchableOpacity onPress={() => { setTakenPictureUri(null); updateImage(grimaceIndex); }} style={styles.button}><Text style={styles.btn}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
+				<Image style={styles.img} source={grimaceUri} />
+				<View style={styles.btnWrapper}>
+					<TouchableOpacity onPress={() => setTakenPictureUri(null)} style={[styles.button, styles.buttonTop]}><Text style={styles.btnText}>Nej, jag vill försöka igen!</Text></TouchableOpacity>
+					<TouchableOpacity onPress={() => { setTakenPictureUri(null); updateImage(grimaceIndex); }} style={styles.button}><Text style={styles.btnText}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
+				</View>
 			</View>
 			:
 			<View style={styles.container}>
-				<Text style={styles.textHeading}>Försök härma bilden!</Text>
+				<Header title={'Försök härma bilden!'} />
 				<RNCamera
 					ref={ref => {
 						this.camera = ref;
 					}}
-					style={styles.preview}
+					style={styles.cameraview}
 					type={RNCamera.Constants.Type.front}
 					flashMode={RNCamera.Constants.FlashMode.on}
 					captureAudio={false}
@@ -71,12 +74,12 @@ const PlaySet = () => {
 						buttonNegative: 'Cancel',
 					}}
 				/>
-				<View style={styles.grimaceImage}>
+				<View style={styles.grimaceImageWrapper}>
 					<Image style={styles.img} source={grimaceUri} />
 				</View>
 				<View style={styles.btnWrapper}>
 					<TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.button}>
-						<Text style={styles.btn}> Ta kort </Text>
+						<Text style={styles.btnText}> Ta kort </Text>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -84,9 +87,11 @@ const PlaySet = () => {
 }
 
 const styles = StyleSheet.create({
-	previewContainer: {
+	container: {
 		flex: 1,
-		alignItems: 'center'
+		alignItems: 'center',
+		flexDirection: 'column',
+		backgroundColor: 'white'
 	},
 	previewImg: {
 		width: 200,
@@ -94,51 +99,31 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: 'pink',
 		borderRadius: 6,
-		marginBottom: 10
+		transform: [{ rotateY: '180deg' }]
 	},
-	previewCompareImg: {
+	img: {
 		width: 200,
 		height: 200,
 		borderWidth: 2,
 		borderColor: 'pink',
-		borderRadius: 6
+		borderRadius: 6,
+		margin: 16
 	},
-	container: {
-		flex: 1,
-		flexDirection: 'column',
-		backgroundColor: 'white'
-	},
-	textHeading: {
-		backgroundColor: 'pink',
-		fontSize: 24,
-		paddingTop: 14,
-		paddingBottom: 14,
-		width: '100%',
-		textAlign: 'center',
-		marginBottom: 24
-	},
-	preview: {
-		flex: 3,
-		alignItems: 'center',
-		borderWidth: 3,
+	cameraview: {
+		width: 200,
+		height: 200,
+		overflow: 'hidden',
+		borderWidth: 2,
 		borderStyle: 'solid',
 		borderColor: 'pink',
-		borderRadius: 6,
-		marginHorizontal: 16
+		borderRadius: 6
 	},
-	grimaceImage: {
-		flex: 2,
+	grimaceImageWrapper: {
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
-	img: {
-		height: 200,
-		width: 200,
-		borderRadius: 6
-	},
 	btnWrapper: {
-		flex: 1,
-		paddingTop: 24
+		flex: 1
 	},
 	button: {
 		backgroundColor: 'pink',
@@ -151,10 +136,9 @@ const styles = StyleSheet.create({
 	},
 	buttonTop: {
 		marginBottom: 10,
-		marginTop: 10,
 		backgroundColor: '#c32365'
 	},
-	btn: {
+	btnText: {
 		fontSize: 16
 	},
 
