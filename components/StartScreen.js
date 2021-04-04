@@ -12,7 +12,7 @@ const StartScreen = ({ navigation }) => {
 				style={styles.startBtn}
 				onPress={() => navigation.navigate('PlaySet')}
 			>
-				<Text style={styles.text}>Börja spela</Text>
+				<Text style={styles.text}>Sätt igång!</Text>
 			</TouchableOpacity>
 		</View>
 	)
@@ -30,8 +30,11 @@ const styles = StyleSheet.create({
 		padding: 15,
 		marginBottom: 100,
 		alignSelf: 'center',
+		flexDirection: 'row',
+		alignItems: 'center'
 	},
 	text: {
+		marginHorizontal: 12,
 		fontSize: 16
 	}
 })

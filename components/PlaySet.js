@@ -47,18 +47,23 @@ const PlaySet = () => {
 		takenPictureUri ?
 			<View style={styles.container}>
 				<Header title={'Blev det likt?'} />
+				<Image style={styles.img} source={grimaceUri} />
 				<Image
 					style={styles.previewImg}
 					source={{ uri: takenPictureUri }} />
-				<Image style={styles.img} source={grimaceUri} />
 				<View style={styles.btnWrapper}>
-					<TouchableOpacity onPress={() => setTakenPictureUri(null)} style={[styles.button, styles.buttonTop]}><Text style={styles.btnText}>Nej, jag vill försöka igen!</Text></TouchableOpacity>
-					<TouchableOpacity onPress={() => { setTakenPictureUri(null); updateImage(grimaceIndex); }} style={styles.button}><Text style={styles.btnText}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
+					<TouchableOpacity onPress={() => setTakenPictureUri(null)} style={[styles.button, styles.buttonTop]}>
+						<Text style={styles.btnText}>Nej, jag vill försöka igen!</Text></TouchableOpacity>
+					<TouchableOpacity onPress={() => { setTakenPictureUri(null); updateImage(grimaceIndex); }} style={styles.button}>
+						<Text style={styles.btnText}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
 				</View>
 			</View>
 			:
 			<View style={styles.container}>
 				<Header title={'Försök härma bilden!'} />
+				<View style={styles.grimaceImageWrapper}>
+					<Image style={styles.img} source={grimaceUri} />
+				</View>
 				<RNCamera
 					ref={ref => {
 						this.camera = ref;
@@ -74,9 +79,7 @@ const PlaySet = () => {
 						buttonNegative: 'Cancel',
 					}}
 				/>
-				<View style={styles.grimaceImageWrapper}>
-					<Image style={styles.img} source={grimaceUri} />
-				</View>
+
 				<View style={styles.btnWrapper}>
 					<TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.button}>
 						<Text style={styles.btnText}> Ta kort </Text>
@@ -99,7 +102,8 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderColor: 'pink',
 		borderRadius: 6,
-		transform: [{ rotateY: '180deg' }]
+		transform: [{ rotateY: '180deg' }],
+		marginBottom: 16
 	},
 	img: {
 		width: 200,
@@ -116,7 +120,8 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderStyle: 'solid',
 		borderColor: 'pink',
-		borderRadius: 6
+		borderRadius: 6,
+		marginBottom: 16
 	},
 	grimaceImageWrapper: {
 		justifyContent: 'center',
@@ -133,13 +138,16 @@ const styles = StyleSheet.create({
 		padding: 15,
 		paddingHorizontal: 20,
 		alignSelf: 'center',
+		flexDirection: 'row',
+		alignItems: 'center'
 	},
 	buttonTop: {
 		marginBottom: 10,
 		backgroundColor: '#c32365'
 	},
 	btnText: {
-		fontSize: 16
+		fontSize: 16,
+		marginHorizontal: 12
 	},
 
 });
