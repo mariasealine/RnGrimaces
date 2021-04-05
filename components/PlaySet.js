@@ -3,6 +3,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import grimaceImages from './../imagesApi/grimaceImages';
 import Header from './Header';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 const PlaySet = () => {
 
@@ -53,8 +55,10 @@ const PlaySet = () => {
 					source={{ uri: takenPictureUri }} />
 				<View style={styles.btnWrapper}>
 					<TouchableOpacity onPress={() => setTakenPictureUri(null)} style={[styles.button, styles.buttonTop]}>
+						<IonIcon name="thumbs-down" size={24} />
 						<Text style={styles.btnText}>Nej, jag vill försöka igen!</Text></TouchableOpacity>
 					<TouchableOpacity onPress={() => { setTakenPictureUri(null); updateImage(grimaceIndex); }} style={styles.button}>
+						<IonIcon name="thumbs-up" size={24} />
 						<Text style={styles.btnText}>Ja! Ge mig en ny grimas!</Text></TouchableOpacity>
 				</View>
 			</View>
@@ -82,6 +86,7 @@ const PlaySet = () => {
 
 				<View style={styles.btnWrapper}>
 					<TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.button}>
+						<Icon name="camera" size={24} />
 						<Text style={styles.btnText}> Ta kort </Text>
 					</TouchableOpacity>
 				</View>

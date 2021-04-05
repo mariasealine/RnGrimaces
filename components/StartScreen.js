@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Header from './Header';
 import Content from './Content';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const StartScreen = ({ navigation }) => {
 	return (
@@ -12,6 +13,7 @@ const StartScreen = ({ navigation }) => {
 				style={styles.startBtn}
 				onPress={() => navigation.navigate('PlaySet')}
 			>
+				<Icon name="play" size={24} />
 				<Text style={styles.text}>Sätt igång!</Text>
 			</TouchableOpacity>
 		</View>
